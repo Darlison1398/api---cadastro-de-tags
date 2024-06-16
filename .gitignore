@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Arquivos de logs
+.hs_err_pid*.log
+.replay_pid*.log
+
+# Arquivos do Maven Wrapper
+.mvnw
+.mvnw.cmd

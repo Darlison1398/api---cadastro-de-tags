@@ -11,8 +11,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.example.cadastro_tags.model.User_admin_model;
-
-
+import com.example.cadastro_tags.model.User_view_model;
 
 @Service
 public class TokenService {
@@ -21,11 +20,19 @@ public class TokenService {
     private String secret;
 
     public String createToken(User_admin_model user_admin) {
+        return createToken(user_admin.getEmail());
+    }
+
+    public String createToken(User_view_model user_view) {
+        return createToken(user_view.getEmail());
+    }
+
+    private String createToken(String email) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("login-auth-api")
-                    .withSubject(user_admin.getEmail())
+                    .withSubject(email)
                     .withExpiresAt(gerarDataHoraExpiracao())
                     .sign(algorithm);
         } catch (JWTCreationException e) {
@@ -33,7 +40,7 @@ public class TokenService {
         }
     }
 
-    public String validarToken (String token) {
+    public String validarToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -49,7 +56,4 @@ public class TokenService {
     private Instant gerarDataHoraExpiracao() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
-
-    
-    
 }

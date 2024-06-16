@@ -29,6 +29,7 @@ public class User_view_service {
 
     public User_view_model createUserView( User_view_model userView ){
         try {
+            userView.setPassword(passwordEncoder.encode(userView.getPassword()));
             return view_repository.save(userView);
         } catch (Exception e) {
             throw new IllegalStateException("Erro ao tentar criar user_view ", e);

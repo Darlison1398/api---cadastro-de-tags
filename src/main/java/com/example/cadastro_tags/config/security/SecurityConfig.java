@@ -30,6 +30,7 @@ public class SecurityConfig {
            .authorizeRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/userView/loginUserView").permitAll()
                         .requestMatchers(HttpMethod.GET, "/tags").hasAnyRole("ADMIN", "VIEW")
                         .requestMatchers(HttpMethod.POST, "/tags").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/tags/**").hasRole("ADMIN")

@@ -36,8 +36,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/tags/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/tags/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/userView/create").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/users/view/**").hasAnyRole("ADMIN", "VIEW")
-                        .requestMatchers(HttpMethod.PUT, "/users/view/**").hasRole("VIEW")
+                        .requestMatchers(HttpMethod.GET, "/userView/getUserById/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/userView/updateUserView/**").hasAnyRole("ADMIN", "VIEW")
+                        .requestMatchers(HttpMethod.DELETE, "/userView/deleteUserView/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/userView/allUsers").hasRole("ADMIN")
                         .anyRequest().authenticated()
            
            )

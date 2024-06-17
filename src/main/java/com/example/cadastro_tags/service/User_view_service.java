@@ -1,5 +1,6 @@
 package com.example.cadastro_tags.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,20 +60,25 @@ public class User_view_service {
     }
 
     public User_view_model updateUserView(Long id, User_view_model newUserView) {
-
         User_view_model userView = view_repository.findById(id)
                .orElseThrow(() -> new IllegalStateException("Usuário não encontrado."));
-
+    
         userView.setName(newUserView.getName());
         userView.setLastname(newUserView.getLastname());
         userView.setAge(newUserView.getAge());
         userView.setEmail(newUserView.getEmail());
-        userView.setPassword(newUserView.getPassword());
+    
+        // Apenas recriptografar a senha se ela foi modificada
+        if (!passwordEncoder.matches(newUserView.getPassword(), userView.getPassword())) {
+            userView.setPassword(passwordEncoder.encode(newUserView.getPassword()));
+        }
+    
         userView.setStatus(newUserView.isStatus());
         userView.setDatahoracadastro(newUserView.getDatahoracadastro());
-
+    
         return view_repository.save(userView);
     }
+    
 
     public User_view_model deleteUserView(Long id) {
         User_view_model userView = view_repository.findById(id)
@@ -82,4 +88,12 @@ public class User_view_service {
         return userView;
     }
     
+
+    public List<User_view_model> allUserView() {
+        try {
+            return view_repository.findAll();
+        } catch (Exception e) {
+            throw new IllegalStateException("Erro ao tentar listar user_view ", e);
+        }
+    }
 }

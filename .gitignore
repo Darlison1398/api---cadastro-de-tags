@@ -33,10 +33,14 @@ build/
 .vscode/
 
 
-# Arquivos de logs
-.hs_err_pid*.log
-.replay_pid*.log
-
-# Arquivos do Maven Wrapper
+.hs_err_pid8800.log
+.hs_err_pid11096.log
+.hs_err_pid17836.log
+.hs_err_pid26224.log
+.hs_err_pid30584.log
+.hs_err_pid38700.log
 .mvnw
 .mvnw.cmd
+.replay_pid11096.log
+.replay_pid17836.log
+.replay_pid8800.log

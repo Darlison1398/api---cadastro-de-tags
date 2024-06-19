@@ -1,5 +1,6 @@
 package com.example.cadastro_tags.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -29,12 +30,8 @@ public class Tag_model {
     @Column
     private boolean status;
 
-    // vai ser o tipo de ação: se abriu ou fechou a porta = Open or Close
-    /*@Column
-    private String last_action;*/
-
     @Column
-    private Date datahoracadastro;
+    private LocalDateTime datahoracadastro;
 
     @OneToOne
     @JoinColumn(name = "user_view_id")

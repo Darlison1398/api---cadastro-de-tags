@@ -2,6 +2,7 @@ package com.example.cadastro_tags.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -44,8 +45,10 @@ public class Tag_controller {
     public ResponseEntity<Tag_model> createtag(@AuthenticationPrincipal User_admin_model userAdm, @RequestBody Tag_model tag) {
         try {
             return ResponseEntity.ok(tag_service.save_tag(userAdm.getEmail(), tag));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Tag já existe
         } catch (Exception e) {
-            throw new IllegalStateException("Não foi possível salvar tag", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Outros erros
         }
 
     }
@@ -67,8 +70,11 @@ public class Tag_controller {
     public void apagarTag(Authentication authentication, @PathVariable Long id) {
         try {
             String email = authentication.getName();
-            tag_service.deleteTag(email, id);
-
+            if (email != null && !email.isEmpty()) {
+                tag_service.deleteTag(email, id);
+            } else {
+                throw new IllegalStateException("Email não pode ser vazio ou nulo");
+            }
         } catch (Exception e) {
             throw new IllegalStateException("Não foi possível apagar tag", e);
         }

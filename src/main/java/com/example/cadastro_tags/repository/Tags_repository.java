@@ -9,5 +9,7 @@ import java.util.List;
 public interface Tags_repository extends JpaRepository<Tag_model, Long> {
 
     List<Tag_model> findByNumber(int number);
+
+    boolean existsByNumber(int number);
     
 }

@@ -1,9 +1,20 @@
-HELP.md
+# Logs
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Maven Wrapper
+.mvn/
+.mvnw
+.mvnw.cmd
+
+# IDEs
 ### STS ###
 .apt_generated
 .classpath
@@ -32,15 +43,6 @@ build/
 ### VS Code ###
 .vscode/
 
-
-.hs_err_pid8800.log
-.hs_err_pid11096.log
-.hs_err_pid17836.log
-.hs_err_pid26224.log
-.hs_err_pid30584.log
-.hs_err_pid38700.log
-.mvnw
-.mvnw.cmd
-.replay_pid11096.log
-.replay_pid17836.log
-.replay_pid8800.log
+# System files
+.DS_Store
+Thumbs.db
